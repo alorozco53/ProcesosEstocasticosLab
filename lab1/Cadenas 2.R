@@ -33,7 +33,10 @@ CA.2babs <- function(x0, p, n, a, b) {
     plot(y, type="o", main="CA2BAbs")
 }
 
-#Ta,-a
+## Ta,-a
+## Solo falta saber qué va a devolver la función si
+## no llega a las barreras absorbentes
+
 Ta <- function(x0, p, n, a) {
     y <- c(0)
     y[1] <- x0
