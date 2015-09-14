@@ -24,28 +24,38 @@ f5 <- function(x, y, a, b) {
     }
 }
 
-
+## Regresa una cadena de Márkov con dos barreras absorbentes
 CA.2babs <- function(x0, p, n, a, b) {
     y <- c(0)
     y[1] <- x0
     for(i in 2:n)
         y[i] <- f5(y[i-1], 2*rbinom(1,1,p)-1, a, b)
-    plot(y, type="o", main="CA2BAbs")
+    return(y)
 }
 
-## Ta,-a
-## Solo falta saber qué va a devolver la función si
-## no llega a las barreras absorbentes
-
-Ta <- function(x0, p, n, a) {
-    y <- c(0)
-    y[1] <- x0
-    if (x0==a || x0==-a)
+## T_{a,-a}
+## y: cadena de Márkov (vector)
+## a: barrera absorbente
+Ta <- function(y, a) {
+    if(a==y[1] || y[1]==-a)
         return(0)
-    for(i in 2:n) {
-        y[i] <- f5(y[i-1], 2*rbinom(1,1,p)-1, a, -a)
-        if (y[i]==a || y[i]==-a)
-            return(i)
+    for(i in 2:length(y)) {
+        if(y[i]==a || y[i]==-a)
+            return(i-1)
     }
-    return(n)
+    return(length(y)-1)
+}
+
+## Estima el tiempo esperado de llegada a alguna
+## barrera absorbente a ó -a.
+## Implementación idéntica a la que hizo el ayudante (no soy
+## fan de esta implementación, sin embargo).
+## n1: tamaño de las caminatas aleatorias
+## n2: número de simulaciones
+est.tabs <- function(p, n1, x0, a, n2) {
+    h <- 0
+    for (i in 1:n2)
+        y <- CA.2babs(x0, p, n1, a, -a)
+        h <- h + Ta(y, a)
+    return(h/n2)
 }
