@@ -42,3 +42,21 @@ MStep <- function(trans.matrix, n, m, i, j) {
     }
     return(probab)
 }
+
+## Computes the probabilities of, starting at a given state i,
+## ever arrive to any of the states k (ρik).
+## For now, it is required to give Ct, the set of transient
+## states.
+Rho <- function(trans.matrix, i) {
+    A <- array(c(0), dim=dim(trans.matrix))
+    b <- matrix(c(0), dim(trans.matrix)[1], 1)
+    for (k in 1:dim(b)[1]) {
+        b[k] <- -trans.matrix[i,k]
+        for (j in 1:dim(A)[1]) {
+            if (j != k)
+                A[i,j] <- trans.matrix[i,j]
+        }
+    }
+    print(A)
+    print(b)
+}
