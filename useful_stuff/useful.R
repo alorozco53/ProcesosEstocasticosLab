@@ -43,20 +43,62 @@ MStep <- function(trans.matrix, n, m, i, j) {
     return(probab)
 }
 
+## Checks if i ⮩ j.
+Leads <- function(trans.matrix, i, j) {
+    
+    ## Auxiliar function
+    LeadsAux <- function(t.matrix, x, y, prev.states) {
+        if (t.matrix[x,y] > 0)
+            return(TRUE)
+        else {
+            for (k in 1:dim(t.matrix)[1]) {
+                if (!(k %in% prev.states) && t.matrix[x,k] > 0) {
+                    if (LeadsAux(t.matrix, k, y, c(prev.states, x)))
+                        return(TRUE)
+                }
+            }
+            return(FALSE)
+        }
+    }
+    
+    if (trans.matrix[i,j] > 0)
+        return(TRUE)
+    else
+        return(LeadsAux(trans.matrix, i, j, c(i)))
+}
+
+## Checks if two states communicate each other
+Communicate <- function(trans.matrix, i, j) {
+    return(Leads(trans.matrix, i, j) && Leads(trans.matrix, j, i))
+}
+
+## Computes the state classification matrix.
+## trans.matrix[i,j] == '+' iff i ⮩ j
+StateClassifMatrix <- function(trans.matrix) {
+    classif.matrix <- array(c('0'), dim=dim(trans.matrix))
+    for (i in 1:dim(trans.matrix)[1]) {
+        for (j in 1:dim(trans.matrix)[2]) {
+            if (Leads(trans.matrix, i, j))
+                classif.matrix[i,j] <- '+'
+        }
+    }
+    return(classif.matrix)
+}
+
 ## Computes the probabilities of, starting at a given state i,
 ## ever arrive to any of the states k (ρik).
 ## For now, it is required to give Ct, the set of transient
 ## states.
-Rho <- function(trans.matrix, i) {
-    A <- array(c(0), dim=dim(trans.matrix))
-    b <- matrix(c(0), dim(trans.matrix)[1], 1)
-    for (k in 1:dim(b)[1]) {
-        b[k] <- -trans.matrix[i,k]
-        for (j in 1:dim(A)[1]) {
-            if (j != k)
-                A[i,j] <- trans.matrix[i,j]
-        }
-    }
-    print(A)
-    print(b)
-}
+## Rho <- function(trans.matrix, i) {
+##     A <- array(c(0), dim=dim(trans.matrix))
+##     b <- matrix(c(0), dim(trans.matrix)[1], 1)
+##     for (k in 1:dim(b)[1]) {
+##         b[k] <- -trans.matrix[i,k]
+##         for (j in 1:dim(A)[1]) {
+##             if (j != k)
+##                 A[i,j] <- trans.matrix[i,j]
+##        }
+##     }
+##     print(A)
+##     print(b)
+## }
