@@ -22,7 +22,7 @@ RandomValue <- function(distrib) {
 MarkovPath <- function(trans.matrix, initial.distrib, n) {
     path <- c(RandomValue(initial.distrib))
     if (n == 1)
-        path[2] <- RandomValue(path[0])
+        path[2] <- RandomValue(path[1])
     else {
         if (n != 0) {
             for (i in 2:(n+1))
