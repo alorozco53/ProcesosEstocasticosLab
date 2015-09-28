@@ -22,34 +22,27 @@ RandomValue <- function(distrib) {
 MarkovSimulation <- function(trans.matrix, initial.distrib, n) {
     path <- c(RandomValue(initial.distrib))
     if (n != 0) {
-        for (i in 2:n)
+        for (i in 2:(n+1))
             path[i] <- RandomValue(trans.matrix[path[i-1],])
     }
     return(path)
 }
 
-## Ejercicio 1
-print('Ejercicio 1')
-print('ejemplo con parámetro p = 1/2')
-p <- 1/4
+## Calcula NjM, el número de visitas al estado j en M pasos
+## j: estado a simular, 0 <= j <= M
+## M: número de pasos
+NjM <- function(trans.matrix, initial.distrib, j, M) {
+    markov.chain <- MarkovSimulation(trans.matrix,
+                                     initial.distrib,
+                                     M)
+    njm <- 0
+    for (i in 1:length(markov.chain)) {
+        if (i == (j+1))
+            njm <- njm + 1
+    }
+    return(njm)
+}
 
-print('matriz de probabilidades de transición P:')
-P <- matrix(c(0), 4, 4)
-P[1,2] <- P[3,2] <- P[2,4] <- p
-P[1,1] <- P[3,1] <- P[2,3] <- 1-p
-P[4,2] <- 1
-print(P)
-
-## a)
-print('a)')
-print('distribución inicial de ejemplo:')
-init <- (1/4) * c(1, 1, 1, 1)
-print(init)
-## Tiempo de simulación
-print('tiempo de simulación de ejemplo:')
-n <- 100
-simulation <- MarkovSimulation(P, init, n)
-print(simulation)
-plot(simulation, type="o", col="green",
-     main="Cadena de Márkov con probabilidad de transición P",
-     xlab="tiempo", ylab="")
+Avg.Visits <- function(trans.matrix, initial.distrib, j, M) {
+    return(NjM(trans.matrix, initial.distrib, j, M) / M)
+}
