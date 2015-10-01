@@ -30,6 +30,4 @@ example <- StreakMarkovChain(0, 151/326, 250)
 plot(example, type="o", col="red", main="Cadena de Rachas",
      xlab="partidas", ylab="racha de victorias")
 print(MStep(StreakMarkovProbab,
-            list(p=1/3), 5, 0, 0, 0))
-            
-            
+            list(p=1/3), 2, 6, 0))

@@ -50,23 +50,44 @@ Avg.Visits <- function(markov.chain, j, M) {
 ## vía las ecuaciones de Chapman-Kolmogorov, empezando en n.
 ## trans.function: recibe una función de probab. de trans.
 ## params: lista de parámetros extra de la función
-MStep <- function(trans.function, params, n, m, i, j) {
-    if (n+m == 0) {
+## MStep <- function(trans.function, params, n, m, i, j) {
+##     if (n+m == 0) {
+##         if (i == j)
+##             return(1)
+##         else
+##             return(0)
+##     }
+##     if (n+m == 1) {
+##         params$i = i
+##         params$j = j
+##         return(trans.function(params))
+##     }
+##     probab <- 0
+##     for (k in 0:max(i, j)) {
+##         n.step <- MStep(trans.function, params, n-1, 1, i, k)
+##         m.step <- MStep(trans.function, params, m-1, 1, k, j)
+##         probab <- probab + (n.step * m.step)
+##     }
+##     return(probab)
+## }
+MStep <- function(trans.function, params, m, i, j) {
+    if (m == 0) {
         if (i == j)
             return(1)
         else
             return(0)
     }
-    if (n+m == 1) {
+    if (m == 1) {
         params$i = i
         params$j = j
         return(trans.function(params))
     }
     probab <- 0
     for (k in 0:max(i, j)) {
-        n.step <- MStep(trans.function, params, n-1, 1, i, k)
-        m.step <- MStep(trans.function, params, m-1, 1, k, j)
-        probab <- probab + (n.step * m.step)
+        m.step <- MStep(trans.function, params, m-1, i, k)
+        params$i = i
+        params$j = j
+        probab <- probab + (m.step * trans.function(params))
     }
     return(probab)
 }
