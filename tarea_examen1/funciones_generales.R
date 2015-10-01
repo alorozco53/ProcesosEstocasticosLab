@@ -31,18 +31,42 @@ MarkovSimulation <- function(trans.matrix, initial.distrib, n) {
 ## Calcula NjM, el número de visitas al estado j en M pasos
 ## j: estado a simular, 0 <= j <= M
 ## M: número de pasos
-NjM <- function(trans.matrix, initial.distrib, j, M) {
-    markov.chain <- MarkovSimulation(trans.matrix,
-                                     initial.distrib,
-                                     M)
+NjM <- function(markov.chain, j, M) {
     njm <- 0
     for (i in 1:length(markov.chain)) {
-        if (i == (j+1))
+        if (i == j+1)
             njm <- njm + 1
     }
     return(njm)
 }
 
-Avg.Visits <- function(trans.matrix, initial.distrib, j, M) {
-    return(NjM(trans.matrix, initial.distrib, j, M) / M)
+## Calcula la proporción del número de visitas a un estado j
+## en M pasos, dada una cadena de Márkov
+Avg.Visits <- function(markov.chain, j, M) {
+    return(NjM(markov.chain, j, M) / M)
+}
+
+## Calcula la probabilidad de transición en m pasos (P^m)i,j
+## vía las ecuaciones de Chapman-Kolmogorov, empezando en n.
+## trans.function: recibe una función de probab. de trans.
+## params: lista de parámetros extra de la función
+MStep <- function(trans.function, params, n, m, i, j) {
+    if (n+m == 0) {
+        if (i == j)
+            return(1)
+        else
+            return(0)
+    }
+    if (n+m == 1) {
+        params$i = i
+        params$j = j
+        return(trans.function(params))
+    }
+    probab <- 0
+    for (k in 0:max(i, j)) {
+        n.step <- MStep(trans.function, params, n-1, 1, i, k)
+        m.step <- MStep(trans.function, params, m-1, 1, k, j)
+        probab <- probab + (n.step * m.step)
+    }
+    return(probab)
 }
