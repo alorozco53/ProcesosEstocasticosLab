@@ -29,7 +29,7 @@ MarkovSimulation <- function(trans.matrix, initial.distrib, n) {
 }
 
 ## Calcula NjM, el número de visitas al estado j en M pasos
-## j: estado a simular, 0 <= j <= M
+## j: estado a simular, 0 <= j
 ## M: número de pasos
 NjM <- function(markov.chain, j, M) {
     njm <- 0

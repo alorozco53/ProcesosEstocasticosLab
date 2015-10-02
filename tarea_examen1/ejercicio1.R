@@ -50,26 +50,42 @@ print(init.matrix.2)
 print('Se iniciará la cadena en i = 2')
 init.distrib.2 <- c(0,0,1,0)
 print(init.distrib.2)
-sim.p1.1000 <- c(0)
-sim.p1.10000 <- c(0)
-sim.p2.1000 <- c(0)
-sim.p2.10000 <- c(0)
-for (j in 1:4) {
-    sim.p1.1000[j] <- AvgVisits(init.matrix.1,
-                                init.distrib.2, j, 1000)
-    sim.p1.10000[j] <- AvgVisits(init.matrix.1,
-                                 init.distrib.2, j, 10000)
-    sim.p2.1000[j] <- AvgVisits(init.matrix.2,
-                                init.distrib.2, j, 1000)
-    sim.p2.10000[j] <- AvgVisits(init.matrix.1,
-                                 init.distrib.2, j, 10000)
+avg.vis.p1.1000 <- c(0)
+avg.vis.p1.10000 <- c(0)
+avg.vis.p2.1000 <- c(0)
+avg.vis.p2.10000 <- c(0)
+sim.p1.1000 <- MarkovSimulation(init.matrix.1,
+                                init.distrib.2, 1000)
+sim.p1.10000 <- MarkovSimulation(init.matrix.1,
+                                 init.distrib.2, 10000)
+sim.p2.1000 <- MarkovSimulation(init.matrix.1,
+                                init.distrib.2, 1000)
+sim.p2.10000 <- MarkovSimulation(init.matrix.1,
+                                 init.distrib.2, 10000)
+for (j in 0:3) {
+    avg.vis.p1.1000[j+1] <- AvgVisits(sim.p1.1000, j, 1000)
+    avg.vis.p1.10000[j+1] <- AvgVisits(sim.p1.10000, j, 10000)
+    avg.vis.p2.1000[j+1] <- AvgVisits(sim.p2.1000, j, 1000)
+    avg.vis.p2.10000[j+1] <- AvgVisits(sim.p2.10000, j, 10000)
 }
 ### Resultados
-print('Simulación con p1, i = 2, 1000 pasos, para toda j:')
-print(sim.p1.1000)
-print('Simulación con p1, i = 2, 10000 pasos, para toda j:')
-print(sim.p1.10000)
-print('Simulación con p2, i = 2, 1000 pasos, para toda j:')
-print(sim.p2.1000)
-print('Simulación con p2, i = 2, 10000 pasos, para toda j:')
-print(sim.p2.10000)
+print('Visitas promedio con p1, i = 2, 1000 pasos, para toda j:')
+print(avg.vis.p1.1000)
+print('Visitas promedio con p1, i = 2, 10000 pasos, para toda j:')
+print(avg.vis.p1.10000)
+print('Visitas promedio con p2, i = 2, 1000 pasos, para toda j:')
+print(avg.vis.p2.1000)
+print('Visitas promedio con p2, i = 2, 10000 pasos, para toda j:')
+print(avg.vis.p2.10000)
+### Graficación de las simulaciones
+x11()
+old.par <- par(mfrow=c(2,2))
+plot(avg.vis.p1.1000, main="Visitas promedio con p1, i = 2, 1000 pasos",
+     type='p')
+plot(avg.vis.p1.10000, main="Visitas promedio con p1, i = 2, 1000 pasos",
+     type='p')
+plot(avg.vis.p2.1000, main="Visitas promedio con p2, i = 2, 10000 pasos",
+     type='p')
+plot(avg.vis.p1.10000, main="Visitas promedio con p2, i = 2, 1000 pasos",
+     type='p')
+par(old.par)

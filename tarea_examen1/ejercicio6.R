@@ -45,11 +45,6 @@ MStepStreakMarkovChain <- function(m, i, j, params) {
     }
 }
 
-##example <- StreakMarkovChain(0, 151/326, 250)
-##plot(example, type="o", col="red", main="Cadena de Rachas",
-##     xlab="partidas", ylab="racha de victorias")
-for (n in 1:10) {
-    print(a <- StationaryDistrib(MStepStreakMarkovChain,
-                                 0:n, n, list(p=1/3)))
-    print(cumsum(a))
-}
+example <- StreakMarkovChain(0, 151/326, 250)
+plot(example, type="o", col="red", main="Cadena de Rachas",
+     xlab="partidas", ylab="racha de victorias")
