@@ -55,14 +55,14 @@ sim.p1.10000 <- c(0)
 sim.p2.1000 <- c(0)
 sim.p2.10000 <- c(0)
 for (j in 1:4) {
-    sim.p1.1000[j] <- Avg.Visits(init.matrix.1,
-                                 init.distrib.2, j, 1000)
-    sim.p1.10000[j] <- Avg.Visits(init.matrix.1,
-                                  init.distrib.2, j, 10000)
-    sim.p2.1000[j] <- Avg.Visits(init.matrix.2,
-                                 init.distrib.2, j, 1000)
-    sim.p2.10000[j] <- Avg.Visits(init.matrix.1,
-                                  init.distrib.2, j, 10000)
+    sim.p1.1000[j] <- AvgVisits(init.matrix.1,
+                                init.distrib.2, j, 1000)
+    sim.p1.10000[j] <- AvgVisits(init.matrix.1,
+                                 init.distrib.2, j, 10000)
+    sim.p2.1000[j] <- AvgVisits(init.matrix.2,
+                                init.distrib.2, j, 1000)
+    sim.p2.10000[j] <- AvgVisits(init.matrix.1,
+                                 init.distrib.2, j, 10000)
 }
 ### Resultados
 print('Simulación con p1, i = 2, 1000 pasos, para toda j:')
