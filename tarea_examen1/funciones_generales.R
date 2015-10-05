@@ -14,8 +14,9 @@ RandomValue <- function(distrib) {
     return(lower.bound)
 }
 
-## Construye la simulación de una cadena de Márkov {Xn}n>=0 en n pasos
-## Regresa un vector con el valor de Xn.
+## Construye la simulación de una cadena de Márkov {Xn}n>=0 en n pasos,
+## dada una matriz de probabilidades de transición y un vector
+## inicial. Regresa un vector con el valor de Xn.
 ## matrix: matriz de probabilidades de transición
 ## initial.distrib: distribución inicial
 ## n: tiempo; número de pasos de la simulación

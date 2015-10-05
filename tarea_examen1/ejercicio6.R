@@ -1,3 +1,6 @@
+## Ejercicio 6
+## Author: AlOrozco53
+
 source('funciones_generales.R')
 
 print('Ejercicio 6')
@@ -40,6 +43,7 @@ StreakStationaryDistrib <- function(p, n) {
     return(distrib)
 }
 
+## Simulación de la cadena de Márkov
 ex.x0 <- rbinom(1, 1, 1/2)
 ex.p <- runif(1)
 ex.n <- floor(1000 * (runif(1) + 0.01)) + 200
@@ -52,6 +56,7 @@ plot(example, type="o", col="red",
      main='Simulación de cadena de rachas',
      xlab="partidas", ylab="racha de victorias")
 
+## Simulación y estimación de la distribución estacionaria
 ex.stat.distrib <- StreakStationaryDistrib(ex.p, ex.n)
 approx.pi <- c(0)
 for (j in 0:(ex.n-1))
@@ -66,6 +71,7 @@ plot(approx.pi, type="p", col="blue",
      xlab="subconjunto de estados", ylab="valores para la distribución")
 par(old.par)
 
+## Comparación entre la aproximación y la distribución estacionaria
 x11()
 plot(VectorComparison(approx.pi, ex.stat.distrib), type="p", col="black",
      main='Comparación entre distribuciones estacionarias',

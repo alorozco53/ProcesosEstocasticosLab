@@ -1,3 +1,6 @@
+## Ejercicio 8
+## Author: AlOrozco53
+
 source('funciones_generales.R')
 
 mat <- matrix(0, 7, 7)
@@ -9,8 +12,6 @@ mat[2,3] <- mat[3,4] <- mat[4,2] <- 1
 
 ## c)
 print('c)')
-### Parámetro p de la matriz
-p <- 1/4
 print('matriz de probabilidades de transición:')
 print(mat)
 ### Distribución inicial de ejemplo
@@ -50,8 +51,10 @@ print(avg.vis.10000)
 ### Graficación de las simulaciones
 x11()
 old.par <- par(mfrow=c(2,1))
-plot(avg.vis.1000, x=0:6,main="Visitas promedio a cada estado en 1000 pasos",
+plot(avg.vis.1000, x=0:6,
+     main="Visitas promedio a cada estado en 1000 pasos",
      type='p', xlab='estados', ylab='distribución estacionaria')
-plot(avg.vis.10000, x=0:6, main="Visitas promedio a cada estado en 10000 pasos",
+plot(avg.vis.10000, x=0:6,
+     main="Visitas promedio a cada estado en 10000 pasos",
      type='p', xlab='estados', ylab='distribución estacionaria')
 par(old.par)

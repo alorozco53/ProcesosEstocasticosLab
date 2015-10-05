@@ -1,24 +1,28 @@
+## Ejercicio 3
+## Author: AlOrozco53
+
 source('funciones_generales.R')
 
-BodyParticlesProbab <- function(x, y, lambda, p) {
-    probab <- 0
-    for (z in 0:min(x,y)) {
-        particles.added <- ((lambda**(y-z)) * exp(-lambda)) /
-            factorial(y - z)
-        rem.part.1 <- comb(x, z)
-        rem.part.2 <- (p**z) * ((1 - p)**(x - z))
-        probab <- probab + (particles.added * rem.part.1 * rem.part.2)
-    }
-    return(probab)
-}
+print('Ejercicio 3')
 
+## Simula una cadena de Márkov que modela el número de partículas
+## en un cuerpo de acuerdo a la explicación del ejercicio.
+## x0: número de partículas inicial
+## lambda: parámetro dado para la distribución Poisson
+## p: parámetro dado para la distribución geométrica
+## n: tamaño de la simulación
 BodyParticlesChain <- function(x0, lambda, p, n) {
+    ## Función auxiliar que define el valor de la cadena
+    ## de Márkov en cada paso; X[n] = H(X[n-1], y)
     H <- function(rem.part, added.part) {
         return(rem.part + added.part)
     }
     
     times <- c(0)
-    
+
+    ## Actualiza el vector de tiempos 'times' que corresponde
+    ## a las partículas 'vivas' dentro del cuerpo.
+    ## number.particles: número de partículas a agregar
     UpdateParticlesTime <- function(number.particles) {
         counter <- length(times) + 1
         if (number.particles > 0) {
@@ -29,6 +33,7 @@ BodyParticlesChain <- function(x0, lambda, p, n) {
         }
     }
 
+    ## Devuelve el número de partículas sobrevivientes en cada paso
     getSurvivingParticles <- function() {
         parts <- 0
         if (length(times) > 0) {
@@ -55,6 +60,11 @@ BodyParticlesChain <- function(x0, lambda, p, n) {
     return(markov.chain)
 }
 
+## Calcula un vector con n entradas (de 0 hasta n) de la distribución
+## estacionaria π, usando la fórmula que se derivó.
+## lambda: parámetro dado
+## p: parámetro dado
+## n: tamaño de la simulación
 BodyParticlesStatDistrib <- function(lambda, p, n) {
     distrib <- c()
     for (i in 0:(n-1)) {
@@ -65,6 +75,7 @@ BodyParticlesStatDistrib <- function(lambda, p, n) {
     return(distrib)
 }
 
+## Simulación de la cadena de Márkov
 ex.lambda <- floor(10 * (runif(1) + 0.01))
 ex.x0 <- rpois(1, ex.lambda)
 ex.p <- runif(1)
@@ -79,6 +90,7 @@ plot(example, type="o", col="red",
      main='Simulación de cadena de partículas en un cuerpo',
      xlab="tiempos", ylab="número de partículas en el cuerpo")
 
+## Simulación y estimación de la distribución estacionaria
 ex.stat.n <- floor(100 * (1 + 0.01)) + 69
 ex.stat.distrib <- BodyParticlesStatDistrib(ex.lambda,
                                             ex.p,
@@ -96,6 +108,7 @@ plot(approx.pi, type="p", col="blue",
      xlab="estados", ylab="valores para la distribución")
 par(old.par)
 
+## Comparación entre la aproximación y la distribución estacionaria
 x11()
 plot(VectorComparison(approx.pi, ex.stat.distrib), type="p", col="black",
      main='Comparación entre distribuciones estacionarias',

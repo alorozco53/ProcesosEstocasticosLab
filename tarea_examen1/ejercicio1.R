@@ -1,6 +1,8 @@
+## Ejercicio 1
+## Author: AlOrozco53
+
 source('funciones_generales.R')
 
-## Ejercicio 1
 print('Ejercicio 1')
 
 ## Construye la matriz de probabilidades de transición

@@ -1,6 +1,8 @@
+## Ejercicio 11
+## Author: AlOrozco53
+
 source('funciones_generales.R')
 
-## Ejercicio 11
 print('Ejercicio 11')
 
 ## Construye la matriz de probabilidades de transición
@@ -59,8 +61,10 @@ print(avg.vis.10000)
 ### Graficación de las simulaciones
 x11()
 old.par <- par(mfrow=c(2,1))
-plot(avg.vis.1000, x=0:3, main="Visitas promedio a cada estado en 1000 pasos",
+plot(avg.vis.1000, x=0:3,
+     main="Visitas promedio a cada estado en 1000 pasos",
      type='p', xlab='estados', ylab='distribución estacionaria')
-plot(avg.vis.10000, x=0:3, main="Visitas promedio a cada estado en 10000 pasos",
+plot(avg.vis.10000, x=0:3,
+     main="Visitas promedio a cada estado en 10000 pasos",
      type='p', xlab='estados', ylab='distribución estacionaria')
 par(old.par)
