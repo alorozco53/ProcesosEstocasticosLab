@@ -54,8 +54,9 @@ Ta <- function(y, a) {
 ## n2: número de simulaciones
 est.tabs <- function(p, n1, x0, a, n2) {
     h <- 0
-    for (i in 1:n2)
+    for (i in 1:n2) {
         y <- CA.2babs(x0, p, n1, a, -a)
         h <- h + Ta(y, a)
+    }
     return(h/n2)
 }

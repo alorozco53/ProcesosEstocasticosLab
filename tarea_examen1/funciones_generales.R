@@ -30,50 +30,34 @@ MarkovSimulation <- function(trans.matrix, initial.distrib, n) {
 
 ## Calcula NjM, el número de visitas al estado j en M pasos
 ## j: estado a simular, 0 <= j
-## M: número de pasos
+## M: número de pasos, 1 <= M <= length(markov.chain)
 NjM <- function(markov.chain, j, M) {
     njm <- 0
-    for (i in 1:length(markov.chain)) {
-        if (i == j+1)
+    for (i in 1:M) {
+        if (markov.chain[i] == j+1)
             njm <- njm + 1
     }
     return(njm)
 }
 
 ## Calcula la proporción del número de visitas a un estado j
-## en M pasos, dada una cadena de Márkov
+## en M pasos, dada una cadena de Márkov,
+## 1 <= M <= length(markov.chain)
 AvgVisits <- function(markov.chain, j, M) {
     return(NjM(markov.chain, j, M) / M)
 }
 
-StationaryDistrib <- function(mstep.function, state.space,
-                              n, params) {
-    distrib <- c(0)
-    i <- state.space[1]
-    for (j in state.space) {
-        sum <- 0
-        for (m in 1:n)
-            sum <- sum + mstep.function(m, i, j, params)
-        distrib[j] <- sum / n
-    }
-    return(distrib)
+## Dados dos vectores x e y del mismo tamaño, regresa un nuevo
+## vector cuya i-ésima entrada es abs(x[i]-y[i]). Esto con el fin
+## de comparar los valores entrada por entrada.
+VectorComparison <- function(x, y) {
+    z <- c(0)
+    for (i in 1:length(x))
+        z[i] <- abs(x[i] - y[i])
+    return(z)
 }
-## Calcula la probabilidad de transición en m pasos (P^m)i,j
-## vía las ecuaciones de Chapman-Kolmogorov, empezando en n.
-## trans.function: recibe una función de probab. de trans.
-## params: lista de parámetros extra de la función
-## MStep <- function(trans.function, params, m, i, j) {
-##     if (m == 1) {
-##         params$i = i
-##         params$j = j
-##         return(trans.function(params))
-##     }
-##     probab <- 0
-##     for (k in 0:max(i, j)) {
-##         m.step <- MStep(trans.function, params, m-1, i, k)
-##         params$i = i
-##         params$j = j
-##         probab <- probab + (m.step * trans.function(params))
-##     }
-##     return(probab)
-## }
+
+## Devuelve el número de combinaciones de n elementos, de m en m
+comb <- function(n, m) {
+    return(factorial(n) / (factorial(m) * factorial(n-m)))
+}
