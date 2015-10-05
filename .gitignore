@@ -2,3 +2,9 @@
 *.class
 ess-15.03-1
 ess-15.03-1/*
+*.log
+*.aux
+*.pdf
+*.png
+*.jpg
+*.jpeg
