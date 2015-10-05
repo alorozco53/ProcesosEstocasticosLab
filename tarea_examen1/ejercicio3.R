@@ -95,3 +95,8 @@ plot(approx.pi, type="p", col="blue",
      main='Aproximación de la distribución estacionaria',
      xlab="estados", ylab="valores para la distribución")
 par(old.par)
+
+x11()
+plot(VectorComparison(approx.pi, ex.stat.distrib), type="p", col="black",
+     main='Comparación entre distribuciones estacionarias',
+     xlab="subconjunto de estados", ylab="diferencia entre ambas distribuciones")
