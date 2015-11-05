@@ -1,0 +1,129 @@
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Short Sectioned Assignment
+% LaTeX Template
+% Version 1.0 (5/5/12)
+%
+% This template has been downloaded from:
+% http://www.LaTeXTemplates.com
+%
+% Original author:
+% Frits Wenneker (http://www.howtotex.com)
+%
+% License:
+% CC BY-NC-SA 3.0 (http://creativecommons.org/licenses/by-nc-sa/3.0/)
+%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%----------------------------------------------------------------------------------------
+%	PACKAGES AND OTHER DOCUMENT CONFIGURATIONS
+%----------------------------------------------------------------------------------------
+
+%% \documentclass[paper=a4, fontsize=11pt]{scrartcl} % A4 paper and 11pt font size
+\documentclass[paper=letter, fontsize=12pt]{scrartcl} % Letter paper and 12pt font size
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc} % Use 8-bit encoding that has 256 glyphs
+\usepackage{fourier} % Use the Adobe Utopia font for the document - comment this line to return to the LaTeX default
+\usepackage[spanish]{babel}
+\usepackage{amsmath,amsfonts,amsthm} % Math packages
+\usepackage{listings}
+\usepackage{xcolor}
+\usepackage{hanging}
+
+\lstset{literate=
+  {á}{{\'a}}1 {é}{{\'e}}1 {í}{{\'i}}1 {ó}{{\'o}}1 {ú}{{\'u}}1
+  {Á}{{\'A}}1 {ñ}{{\~n}}1 {É}{{\'E}}1 {Í}{{\'I}}1 {Ó}{{\'O}}1
+  {Ú}{{\'U}}1,
+  belowcaptionskip=1\baselineskip,
+  breaklines=true,
+  frame=L,
+  xleftmargin=\parindent,
+  language=R,
+  showstringspaces=false,
+  basicstyle=\footnotesize\ttfamily,
+  keywordstyle=\bfseries\color{green!40!black},
+  commentstyle=\itshape\color{purple!40!black},
+  identifierstyle=\color{blue},
+  stringstyle=\color{orange},
+}
+
+\usepackage{lipsum} % Used for inserting dummy 'Lorem ipsum' text into the template
+\usepackage{sectsty} % Allows customizing section commands
+\allsectionsfont{\raggedright \textit\normalfont\scshape\emph} % Make all sections centered, the default font and small caps
+            
+\usepackage{fancyhdr} % Custom headers and footers
+\pagestyle{fancyplain} % Makes all pages in the document conform to the custom headers and footers
+\fancyhead{} % No page header - if you want one, create it in the same way as the footers below
+\fancyfoot[L]{} % Empty left footer
+\fancyfoot[C]{} % Empty center footer
+\fancyfoot[R]{\thepage} % Page numbering for right footer
+\renewcommand{\headrulewidth}{0pt} % Remove header underlines
+\renewcommand{\footrulewidth}{0pt} % Remove footer underlines
+\setlength{\headheight}{13.6pt} % Customize the height of the header
+
+\numberwithin{equation}{section} % Number equations within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{figure}{section} % Number figures within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+\numberwithin{table}{section} % Number tables within sections (i.e. 1.1, 1.2, 2.1, 2.2 instead of 1, 2, 3, 4)
+
+\setlength\parindent{0pt} % Removes all indentation from paragraphs - comment this line for an assignment with lots of text
+
+%----------------------------------------------------------------------------------------
+%	TITLE SECTION
+%----------------------------------------------------------------------------------------
+
+\newcommand{\horrule}[1]{\rule{\linewidth}{#1}} % Create horizontal rule command with 1 argument of height
+
+\title{
+  \vspace*{-2cm}
+  \begin{center}
+    \normalfont \normalsize
+    \textsc{Universidad Nacional Autónoma de México\\Facultad de Ciencias} \\ [5pt]
+    %\horrule{0.5pt} \\[0.4cm] % Thin top horizontal rule
+    \Large \textbf{Proyecto Final - Proceso (Poisson) Espacial} \\ [5pt] % The assignment title
+    %\horrule{2pt} \\[0.5cm] % Thick bottom horizontal rule
+    \large \textit{Procesos Estocásticos} \\
+  \end{center}
+}
+
+\author{
+  \small Arroyo Jamaica, Juan Manuel\\ [-10pt]
+  \small \texttt{manuel\_101@ciencias.unam.mx}
+  \and
+  \small Leyva Pichardo, Jesús Francisco\\ [-10pt]
+  \small \texttt{j.leyvapichardo@ciencias.unam.mx}
+  \and
+  \small Orozco Camacho, Albert Manuel\\ [-10pt]
+  \small \texttt{alorozco53@ciencias.unam.mx}
+  \vspace*{5pt}
+} % Your name
+
+\date{\normalsize\today} % Today's date or a custom date
+\begin{document}
+
+\maketitle
+
+%% \bibliography{bibliografia}
+%% \bibliographystyle{MiEstilo}
+\section*{\centering Bibliografía}
+\vspace*{1.1cm}
+\hangpara{1cm}{1}%
+Bivand, Roger S., \textit{et al}. \textit{Applied Spatial Data Analysis with R}.\\
+New York: Springer, 2008. Impreso.\par
+\vspace*{1.1cm}
+\hangpara{1cm}{1}%
+Fuentes Santos, Isabel. ``Inferencia Estadística en Procesos Puntuales Espaciales.\\
+Aplicación al Análisis de Incendios Forestales en Galicia''. Tesis. Universidade de\\
+Santiago de Compostela: 2009. Impreso.\par
+\vspace*{1.1cm}
+\hangpara{1cm}{1}%
+Moller, Jesper y Rasmus Plenge Waagepetersen. \textit{Statistical Inference and Simulation\\
+  for Spatial Point Processes}. Boca Raton: Chapman \& Hall/CRC, 2004. Impreso.\par
+\vspace*{1.1cm}
+\hangpara{1cm}{1}%
+Robert, Christian P. y George Casella. \textit{Introducing Monte Carlo Methods in R}.\\
+New York: Springer, 2006. Impreso.\par
+\vspace*{1.1cm}
+\hangpara{1cm}{1}%
+Streit, Roy L. \textit{Poisson Point Processes: Imaging, Tracking, and Sensing}.\\
+New York: Springer, 2010. Impreso.
+\end{document}
